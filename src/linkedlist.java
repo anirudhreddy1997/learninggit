@@ -21,112 +21,69 @@ class listnode{
 }
 
 public class linkedlist {
-	static listnode head=null;
-	
-	private static int length;
-	
-	public linkedlist(){
-		linkedlist.length=0;
-	}
-	//beginning insertion
-	public static void insertatbeg(listnode node){
-		node.setnext(head);
-		head=node;
-		linkedlist.length++;
-	}
-	//insertion at end
-	public static void insertatend(listnode node){
+	private listnode head=null;
+	public int length =0;
+	public void insertAtBeg(int x){
+		listnode temp =new listnode(x);
 		if(head==null){
-			head=node;
-		}
-		else{
-			listnode p,q;
-			for(p=head;(q=p.getnext())!=null;p=q);
-			p.setnext(node);
+			head=temp;
+		}else{
+		temp.setnext(head);
+		head=temp;
+		
 		}
 		length++;
 	}
-	//insertion at random position
-	public static void insert(listnode node,int position){
-		if(position<0){
-			position=0;
+	
+	public void insert(int position,int data){
+		listnode temp=head;
+		listnode temp2=new listnode(data);
+		if(position<1){
+			position=1;
 		}
 		if(position>length){
 			position=length;
 		}
-		if(head==null){
-			head=node;
-		}
-		else if(position==0){
-			node.setnext(head);
-			head=node;
-			
+		if(position==1){
+			temp2.setnext(head);
+			head=temp2;
 		}
 		else{
-			listnode temp=head;
-			for(int i=1;i<position;i++){
+			int i=1;
+			while(i<position-1){
 				temp=temp.getnext();
+				i++;
 			}
-			node.setnext(temp.getnext());
-			temp.setnext(node);
+			temp2.setnext(temp.getnext());
+			temp.setnext(temp2);
 			
 		}
 		
-		linkedlist.length++;
+		
 	}
-	//remove head node
-	public static listnode removefrombeg(){
-		listnode node =head;
-		if(node!=null){
-		head=head.getnext();
-		node.setnext(null);
-		}
-		length--;
-		return node;
-	}
-
-	//remove last node
-	public static listnode removefromlast(){
-		listnode node=head;
-		if(head==null)
-			return null;
-		if(head.getnext()==null)
-			return head;
-		for(;(node.getnext()).getnext()!=null;){
-			node=node.getnext();
-		}
-		listnode node1=node.getnext();
-		node.setnext(null);
-		length--;
-		return node1;
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		listnode node1=new listnode(5);
-		listnode node2=new listnode(4);
-		listnode node3=new listnode(3);
-		listnode node4=new listnode(2);
-		listnode node5=new listnode(1);
-		listnode node6=new listnode(7);
-		listnode node7=new listnode(8);
-		listnode node8=new listnode(6);
-		insertatbeg(node1);
-		insertatbeg(node2);
-		insertatbeg(node3);
-		insertatbeg(node4);
-		insertatend(node5);
-		insertatend(node6);
-		insert(node7,3);
-		insert(node8,1);
-		removefrombeg();
-		removefromlast();
-		listnode node=head;
-		for(;node!=null;){
-			
-			System.out.println(node.getdata());
-			node=node.getnext();
+	
+	
+	
+	
+	public void printlist(){
+		listnode temp=head;
+		
+		while(temp!=null){
+			System.out.println(temp.getdata()+" ");
+			temp=temp.getnext();
 		}
 	}
-
+	public static void main(String[] args){
+		linkedlist l=new linkedlist();
+		l.insertAtBeg(1);
+		l.insertAtBeg(2);
+		l.insertAtBeg(3);
+		l.insertAtBeg(4);
+		l.insertAtBeg(5);
+		l.insert(0, 9);
+		l.printlist();
+		l.insert(3, 8);
+		l.printlist();
+	}
 }
+	
